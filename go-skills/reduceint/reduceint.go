@@ -21,7 +21,7 @@ func main() {
 	div := func(acc int, cur int) int {
 		return acc / cur
 	}
-	as := []int{500, 2}
+	as := []int{500, 2,}
 	ReduceInt(as, mul)
 	ReduceInt(as, sum)
 	ReduceInt(as, div)

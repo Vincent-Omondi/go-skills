@@ -36,7 +36,7 @@ func itoa(n int) string {
 	}
 	s := ""
 	for ; n > 0; n /= 10 {
-		s = string(byte('0'+n%10)) + s
+		s = string(byte(n%10+'0')) + s
 	}
 	return s
 }
