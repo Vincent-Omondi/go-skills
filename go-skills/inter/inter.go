@@ -1,33 +1,28 @@
 package main
 
 import (
-	"fmt"
 	"os"
+
+	"github.com/01-edu/z01"
 )
 
 func main() {
-	if len(os.Args) != 3 {
+	if len(os.Args) < 3 {
 		return
 	}
 
 	s1, s2 := os.Args[1], os.Args[2]
-	seen := make(map[rune]bool)
-	result := ""
+	seens1, seens2 := make(map[rune]bool), make(map[rune]bool)
 
-	for _, r := range s1 {
-		if !seen[r] && containRune(s2, r) {
-			seen[r] = true
-			result += string(r)
+	for _, r := range s2 {
+		seens2[r] = true
+	}
+
+	for _, c := range s1 {
+		if seens2[c] && !seens1[c] {
+			seens1[c] = true
+			z01.PrintRune(c)
 		}
 	}
-	fmt.Println(result)
-}
-
-func containRune(s string, r rune) bool {
-	for _, c := range s {
-		if c == r {
-			return true
-		}
-	}
-	return false
+	z01.PrintRune('\n')
 }

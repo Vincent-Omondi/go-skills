@@ -20,11 +20,10 @@ func atoi(s string) int {
 
 // Converts an integer to a hexadecimal string
 func itoa_hex(n int) string {
-	if n == 0 {
+	if n <= 0 {
 		return "0"
 	}
-
-	hexChars := "0123456789abcdef"
+	hexChars := "0123456789adcdef"
 	s := ""
 	for ; n > 0; n /= 16 {
 		s = string(hexChars[n%16]) + s
