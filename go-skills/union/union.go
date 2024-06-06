@@ -1,39 +1,23 @@
 package main
 
 import (
-	"fmt"
 	"os"
+
+	"github.com/01-edu/z01"
 )
 
 func main() {
-	// Check the number of arguments
 	if len(os.Args) != 3 {
-		fmt.Println()
 		return
 	}
 
-	// Get the input strings
-	str1 := os.Args[1]
-	str2 := os.Args[2]
+	union := make(map[rune]bool)
 
-	// Initialize a map to track seen characters
-	seen := make(map[rune]bool)
-	var result []rune
-
-	// Function to add unique characters to the result
-	addUniqueChars := func(str string) {
-		for _, char := range str {
-			if !seen[char] {
-				seen[char] = true
-				result = append(result, char)
-			}
+	for _, c := range os.Args[1] + os.Args[2] {
+		if !union[c] {
+			union[c] = true
+			z01.PrintRune(c)
 		}
 	}
-
-	// Add characters from both strings
-	addUniqueChars(str1)
-	addUniqueChars(str2)
-
-	// Print the result
-	fmt.Println(string(result))
+	z01.PrintRune('\n')
 }
