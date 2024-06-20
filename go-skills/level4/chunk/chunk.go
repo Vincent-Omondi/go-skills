@@ -8,14 +8,15 @@ func Chunk(slice []int, size int) {
 		return
 	}
 
+	var result [][]int
 	for i := 0; i < len(slice); i += size {
 		end := i + size
 		if end > len(slice) {
 			end = len(slice)
 		}
-		fmt.Print(slice[i:end])
+		result = append(result, slice[i:end])
 	}
-	fmt.Println()
+	fmt.Println(result)
 }
 
 func main() {
