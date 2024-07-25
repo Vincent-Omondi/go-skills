@@ -1,28 +1,37 @@
 package main
 
-import "fmt"
-
-func Chunk(slice []int, size int) {
-	if size <= 0 {
-		fmt.Println()
-		return
-	}
-
-	var result [][]int
-	for i := 0; i < len(slice); i += size {
-		end := i + size
-		if end > len(slice) {
-			end = len(slice)
-		}
-		result = append(result, slice[i:end])
-	}
-	fmt.Println(result)
-}
+import (
+	"fmt"
+)
 
 func main() {
-	Chunk([]int{}, 10)
-	Chunk([]int{0, 1, 2, 3, 4, 5, 6, 7}, 0)
-	Chunk([]int{0, 1, 2, 3, 4, 5, 6, 7}, 3)
-	Chunk([]int{0, 1, 2, 3, 4, 5, 6, 7}, 5)
-	Chunk([]int{0, 1, 2, 3, 4, 5, 6, 7}, 4)
+	// fmt.Print(FifthAndSkip("abcdefghijklmnopqrstuwxyz"))
+	fmt.Print(FifthAndSkip("This is a short sentence"))
+	// fmt.Print(FifthAndSkip("1234"))
+}
+
+func FifthAndSkip(str string) string {
+	words := ""
+	for _, r := range str {
+		if r == ' ' {
+			continue
+		}
+		words += string(r)
+	}
+
+	res := ""
+	for i := 0; i < len(words); i += 5 {
+		end := i + 5
+		if end > len(words) {
+			end = len(words)
+		}
+		strslice := words[i:end]
+
+		if len(strslice) >= 6 {
+			strslice = strslice[:5] + strslice[6:]
+		}
+
+		res += strslice
+	}
+	return res + "\n"
 }
