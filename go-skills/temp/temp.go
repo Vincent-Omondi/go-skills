@@ -2,36 +2,44 @@ package main
 
 import (
 	"fmt"
+	"os"
 )
 
 func main() {
-	// fmt.Print(FifthAndSkip("abcdefghijklmnopqrstuwxyz"))
-	fmt.Print(FifthAndSkip("This is a short sentence"))
-	// fmt.Print(FifthAndSkip("1234"))
+	if len(os.Args) == 1 || containsHelpFlag(os.Args[1:]) {
+		fmt.Println("options: abcdefghijklmnopqrstuvwxyz")
+		return
+	}
+
+	var options int
+
+	for _, arg := range os.Args[1:] {
+		if len(arg) < 2 || arg[0] != '-' {
+			fmt.Println("Invalid Option")
+			return
+		}
+
+		for _, ch := range arg[1:] {
+			if ch < 'a' || ch > 'z' {
+				fmt.Println("Invalid Option")
+				return
+			}
+			options |= 1 << (ch - 'a')
+		}
+	}
+
+	fmt.Printf("%08b %08b %08b %08b\n",
+		(options>>24)&0xFF,
+		(options>>16)&0xFF,
+		(options>>8)&0xFF,
+		options&0xFF)
 }
 
-func FifthAndSkip(str string) string {
-	words := ""
-	for _, r := range str {
-		if r == ' ' {
-			continue
+func containsHelpFlag(args []string) bool {
+	for _, arg := range args {
+		if len(arg) > 1 && arg[1] == 'h' {
+			return true
 		}
-		words += string(r)
 	}
-
-	res := ""
-	for i := 0; i < len(words); i += 5 {
-		end := i + 5
-		if end > len(words) {
-			end = len(words)
-		}
-		strslice := words[i:end]
-
-		if len(strslice) >= 6 {
-			strslice = strslice[:5] + strslice[6:]
-		}
-
-		res += strslice
-	}
-	return res + "\n"
+	return false
 }
